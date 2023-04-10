@@ -6,7 +6,7 @@ public class Room {
     String room_name;
     int capacity;
     HashMap<Integer, Activity> schedule;
-    public void Room(String building, String room_name, int capacity) {
+    public Room(String building, String room_name, int capacity) {
         this.building = building;
         this.room_name = room_name;
         this.capacity = capacity;

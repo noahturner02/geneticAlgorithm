@@ -11,7 +11,7 @@ public class Activity {
     Facilitator active_facilitator;
     int time;
     Room room;
-    public void Activity(String name, int expected_enrollment, List<Facilitator> preferred_facilitators, List<Facilitator> other_facilitators) {
+    public Activity(String name, int expected_enrollment, List<Facilitator> preferred_facilitators, List<Facilitator> other_facilitators) {
         this.name = name;
         this.expected_enrollment = expected_enrollment;
         this.preferred_facilitators = preferred_facilitators;
