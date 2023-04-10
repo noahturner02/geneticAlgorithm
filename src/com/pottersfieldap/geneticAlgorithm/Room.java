@@ -1,8 +1,4 @@
 package com.pottersfieldap.geneticAlgorithm;
-
-<<<<<<< Updated upstream
-public class Room {
-=======
 import java.util.HashMap;
 
 public class Room {
@@ -15,6 +11,4 @@ public class Room {
         this.room_name = room_name;
         this.capacity = capacity;
     }
-
->>>>>>> Stashed changes
 }
