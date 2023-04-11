@@ -1,5 +1,7 @@
 package com.pottersfieldap.geneticAlgorithm;
 
+import org.javatuples.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,8 +46,19 @@ public class Reproduce {
     List<Schedule> generation = new ArrayList<>();
     // Complete history of generations. Add a generation once it is done.
     List<List<Schedule>> generation_list = new ArrayList<>();
+
+
+    public void geneticAlgorithm() {
+        firstGeneration();
+
+        // Printing only
+        for (Schedule s : generation) {
+            System.out.println(s);
+            System.out.println(fitnessFunction(s));
+        }
+    }
     // Makes the first generation completely random. No parents to 'cross over'
-    public void firstGeneration() {
+    private void firstGeneration() {
         Random r = new Random();
         // Make 100 children
         for (int i = 0; i < 100; i++) {
@@ -60,13 +73,6 @@ public class Reproduce {
             }
             s.setActivityList(activityList); // add activity list to schedule object
             generation.add(s); // child is now complete. add it to the generation
-        }
-
-        // Printing only
-        for (Schedule s : generation) {
-            System.out.println(s);
-
-            System.out.println(fitnessFunction(s));
         }
     }
 
@@ -119,6 +125,12 @@ public class Reproduce {
             return 0.2;
         } else {
             return -0.1;
+        }
+    }
+    // Populate the facilitator's schedules with Schedule information. Makes fitness function easier.
+    private void createFacilitatorSchedules(Schedule schedule) {
+        for (Activity a : schedule.getActivityList()) {
+            a.getActive_facilitator().getSchedule().add(new Pair<>(a.getTime(), a));
         }
     }
 

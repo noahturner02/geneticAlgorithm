@@ -20,7 +20,7 @@ public class Facilitator {
         return schedule;
     }
 
-    public void setSchedule(List<Pair<Integer, Activity>>) {
+    public void setSchedule(List<Pair<Integer, Activity>> schedule) {
         this.schedule = schedule;
     }
 }
