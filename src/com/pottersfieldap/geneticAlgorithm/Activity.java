@@ -3,7 +3,7 @@ import java.util.List;
 // Object form of the activities offered by SLA
 import java.util.HashMap;
 import java.util.List;
-public class Activity {
+public class Activity implements Cloneable {
     String name;
     int expected_enrollment;
     List<Facilitator> preferred_facilitators;
@@ -45,4 +45,14 @@ public class Activity {
     public String toString() {
         return name + " at " + ((10 + time) % 12) + " o'clock in " + room.getRoom_name() + " taught by instructor " + active_facilitator.getName() + ".";
     }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
