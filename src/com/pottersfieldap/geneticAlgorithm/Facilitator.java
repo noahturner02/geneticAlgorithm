@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Facilitator {
     private String name;
-    HashMap<Integer, Activity> schedule;
 
     public Facilitator(String name) {
         this.name = name;

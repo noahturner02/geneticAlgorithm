@@ -65,9 +65,61 @@ public class Reproduce {
         // Printing only
         for (Schedule s : generation) {
             System.out.println(s);
+
+            System.out.println(fitnessFunction(s));
         }
     }
-    
-    
+
+    private double fitnessFunction(Schedule schedule) {
+        double total_fitness = 0;
+        for (Activity a : schedule.getActivityList()) {
+            double activity_fitness = 0;
+            activity_fitness += doubleBookedActivity(schedule, a);
+            activity_fitness += roomSizeAnalysis(a);
+            activity_fitness += preferredFacilitator(a);
+            total_fitness += activity_fitness;
+        }
+        return total_fitness;
+    }
+    // Check to see if activity is scheduled in the same room and same time as another activity
+    private double doubleBookedActivity(Schedule s, Activity activity) {
+        int time = activity.getTime();
+        Room room = activity.getRoom();
+        for (Activity a: s.getActivityList()) {
+            // Skip over 'activity'
+            if (a.equals(activity)) {
+                continue;
+            }
+            // If a has the same room and time as activity, return a negative fitness
+            if ((a.getRoom() == room) && (a.getTime() == time)) {
+                // NOTE: if there are conflicting activities, this penalty will happen twice: once for each activity.
+                return -0.5;
+            }
+        }
+        return 0;
+    }
+    // Analyzes the size of the room. penalty for absurdly large rooms, or for too small rooms, benefit otherwise;
+    private double roomSizeAnalysis(Activity a) {
+        Room room = a.getRoom();
+        if (room.getCapacity() >= (a.getExpected_enrollment() * 6)) {
+            return -0.4;
+        } else if (room.getCapacity() >= (a.getExpected_enrollment() * 3)) {
+            return -0.2;
+        } else if (room.getCapacity() < a.getExpected_enrollment()) {
+            return -0.5;
+        } else {
+            return 0.3;
+        }
+    }
+    // Assesses fitness of the choice for facilitator. bonus if preferred or other, penalty otherwise
+    private double preferredFacilitator(Activity a) {
+        if (a.preferred_facilitators.contains(a.getActive_facilitator())) {
+            return 0.5;
+        } else if (a.other_facilitators.contains(a.getActive_facilitator())) {
+            return 0.2;
+        } else {
+            return -0.1;
+        }
+    }
 
 }

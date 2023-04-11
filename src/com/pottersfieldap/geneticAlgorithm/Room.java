@@ -15,4 +15,8 @@ public class Room {
     public String getRoom_name() {
         return room_name;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
 }

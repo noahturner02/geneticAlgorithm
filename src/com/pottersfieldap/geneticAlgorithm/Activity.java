@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 public class Activity implements Cloneable {
     String name;
-    int expected_enrollment;
+    private int expected_enrollment;
     List<Facilitator> preferred_facilitators;
     List<Facilitator> other_facilitators;
     private Facilitator active_facilitator;
@@ -53,6 +53,10 @@ public class Activity implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int getExpected_enrollment() {
+        return expected_enrollment;
     }
 
 }
