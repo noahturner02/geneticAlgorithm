@@ -95,8 +95,8 @@ public class Reproduce {
             }
             // If a has the same room and time as activity, return a negative fitness
             if ((a.getRoom() == room) && (a.getTime() == time)) {
-                // NOTE: if there are conflicting activities, this penalty will happen twice: once for each activity.
-                return -0.5;
+                // NOTE: if there are conflicting activities, this penalty will happen twice: once for each activity. Sum of -0.5
+                return -0.25;
             }
         }
         return 0;
@@ -126,7 +126,7 @@ public class Reproduce {
     }
     // Checks to see if facilitators are double booked or not. If not, it's a bonus. If they are, it's a penalty
     private double doubleBookedFacilitators(Schedule s) {
-        double doubleBookedBonus = 0; 
+        double doubleBookedBonus = 0;
         Set<Integer> time_set = new HashSet<>();
         for (Facilitator f : s.getActive_facilitators()) {
             for (Activity a : s.getActivityList()) {
