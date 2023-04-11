@@ -43,7 +43,7 @@ public class Activity implements Cloneable {
     }
 
     public String toString() {
-        return name + " at " + ((10 + time) % 12) + " o'clock in " + room.getRoom_name() + " taught by instructor " + active_facilitator.getName() + ".";
+        return name + " at " + time + " o'clock in " + room.getRoom_name() + " taught by instructor " + active_facilitator.getName() + ".";
     }
 
     public Object clone() {

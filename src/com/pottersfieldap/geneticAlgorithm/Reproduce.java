@@ -39,6 +39,7 @@ public class Reproduce {
     final Room logos325 = new Room("Logos", "Logos 325", 450);
     final Room frank119 = new Room("Frank", "Frank 119", 60);
     final List<Room> rooms = List.of(slater003, roman216, roman201, loft206, loft310, logos325, beach201, beach301, frank119);
+    final List<Integer> times = List.of(10, 11, 12, 1, 2, 3);
     List<Schedule> generation = new ArrayList<>();
     public void firstGeneration() {
         Random r = new Random();
@@ -49,7 +50,7 @@ public class Reproduce {
                 Activity a_clone = (Activity) a.clone();
                 a_clone.setActive_facilitator(facilitators.get(r.nextInt(0, 10)));
                 a_clone.setRoom(rooms.get(r.nextInt(0, 9)));
-                a_clone.setTime(r.nextInt(0, 6));
+                a_clone.setTime(times.get(r.nextInt(0, 6)));
                 activityList.add(a_clone);
             }
             s.setActivityList(activityList);
