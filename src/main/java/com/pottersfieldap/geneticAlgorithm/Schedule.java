@@ -16,10 +16,17 @@ public class Schedule {
     public List<Facilitator> getActive_facilitators() {
         return active_facilitators;
     }
-    public void setActive_facilitators(List<Facilitator> active_facilitators) {
+
+    public Schedule(List<Activity> activityList) {
+        this.activityList = activityList;
+        List<Facilitator> active_facilitators = new ArrayList<>();
+        for (Activity a : activityList) {
+            if (!active_facilitators.contains(a.getActive_facilitator())) {
+                active_facilitators.add(a.getActive_facilitator());
+            }
+        }
         this.active_facilitators = active_facilitators;
     }
-
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Activity a : activityList) {

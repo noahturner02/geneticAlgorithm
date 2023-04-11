@@ -68,7 +68,6 @@ public class Reproduce {
         Random r = new Random();
         // Make 100 children
         for (int i = 0; i < 100; i++) {
-            Schedule s = new Schedule();
             List<Activity> activityList = new ArrayList<>();
             for (Activity a : activities) { // iterate through all activities offered
                 Activity a_clone = (Activity) a.clone(); // Clone the activity. copies existing info so we can edit the rest
@@ -77,8 +76,7 @@ public class Reproduce {
                 a_clone.setTime(times.get(r.nextInt(0, 6))); // select random time
                 activityList.add(a_clone); // add the clone to activity list
             }
-            s.setActivityList(activityList); // add activity list to schedule object
-            generation.add(s); // child is now complete. add it to the generation
+            generation.add(new Schedule(activityList)); // child is now complete. add it to the generation
         }
     }
 
