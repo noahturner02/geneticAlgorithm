@@ -1,4 +1,4 @@
-package com.pottersfieldap.geneticAlgorithm;
+package main.java.com.pottersfieldap.geneticAlgorithm;
 import java.util.HashMap;
 
 public class Room {
