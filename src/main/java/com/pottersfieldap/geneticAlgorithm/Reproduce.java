@@ -2,9 +2,8 @@ package com.pottersfieldap.geneticAlgorithm;
 
 import org.javatuples.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 // This is the class that contains most of the code for the genetic algorithm
 public class Reproduce {
 // Initialize all data from the problem description. Make them final, since this data will not change during algorithm.
@@ -54,7 +53,14 @@ public class Reproduce {
         // Printing only
         for (Schedule s : generation) {
             System.out.println(s);
+            createFacilitatorSchedules(s);
             System.out.println(fitnessFunction(s));
+        }
+    }
+    // Populate the facilitator's schedules with Schedule information. Makes fitness function easier.
+    private void createFacilitatorSchedules(Schedule schedule) {
+        for (Activity a : schedule.getActivityList()) {
+            a.getActive_facilitator().getSchedule().add(new Pair<>(a.getTime(), a));
         }
     }
     // Makes the first generation completely random. No parents to 'cross over'
@@ -127,12 +133,7 @@ public class Reproduce {
             return -0.1;
         }
     }
-    // Populate the facilitator's schedules with Schedule information. Makes fitness function easier.
-    private void createFacilitatorSchedules(Schedule schedule) {
-        for (Activity a : schedule.getActivityList()) {
-            a.getActive_facilitator().getSchedule().add(new Pair<>(a.getTime(), a));
-        }
-    }
+    // Checks to see if facilitators are double booked or not. If not, it's a bonus. If they are, it's a penalty
 
 
 }
