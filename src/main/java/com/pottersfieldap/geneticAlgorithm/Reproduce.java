@@ -141,5 +141,28 @@ public class Reproduce {
         }
         return doubleBookedBonus;
     }
+    // Handles penalties for overloaded or underloaded facilitators.
+    private double numOfActivities(Schedule s) {
+        HashMap<Facilitator, Integer> activityCount = new HashMap<>();
+        for (Activity a : s.getActivityList()) {
+            Facilitator f = a.getActive_facilitator();
+            if (activityCount.containsKey(f)) {
+                activityCount.put(f, activityCount.get(f) + 1);
+            } else {
+                activityCount.put(f, 1);
+            }
+        }
 
+        for (Facilitator f : activityCount.keySet()) {
+            if (activityCount.get(f) > 4) {
+                return -0.5;
+            } else if (activityCount.get(f) <= 2) {
+                if (!f.equals(tyler)) {
+                    return -0.4;
+                }
+            }
+        }
+        return 0;
+    }
+    
 }
