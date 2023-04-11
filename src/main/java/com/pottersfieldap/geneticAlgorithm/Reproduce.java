@@ -53,14 +53,7 @@ public class Reproduce {
         // Printing only
         for (Schedule s : generation) {
             System.out.println(s);
-            createFacilitatorSchedules(s);
             System.out.println(fitnessFunction(s));
-        }
-    }
-    // Populate the facilitator's schedules with Schedule information. Makes fitness function easier.
-    private void createFacilitatorSchedules(Schedule schedule) {
-        for (Activity a : schedule.getActivityList()) {
-            a.getActive_facilitator().getSchedule().add(new Pair<>(a.getTime(), a));
         }
     }
     // Makes the first generation completely random. No parents to 'cross over'
@@ -132,6 +125,21 @@ public class Reproduce {
         }
     }
     // Checks to see if facilitators are double booked or not. If not, it's a bonus. If they are, it's a penalty
-
+    private double doubleBookedFacilitators(Schedule s) {
+        double doubleBookedBonus = 0; 
+        Set<Integer> time_set = new HashSet<>();
+        for (Facilitator f : s.getActive_facilitators()) {
+            for (Activity a : s.getActivityList()) {
+                if (!time_set.contains(a.getTime())) {
+                    time_set.add(a.getTime());
+                } else {
+                    doubleBookedBonus -= 0.2;
+                    break;
+                }
+            }
+            doubleBookedBonus += 0.2;
+        }
+        return doubleBookedBonus;
+    }
 
 }
