@@ -14,6 +14,7 @@ public class Reproduce {
     Facilitator tyler = new Facilitator("Tyler");
     Facilitator numen = new Facilitator("Numen");
     Facilitator zeldin = new Facilitator("Zeldin");
+    List<Facilitator> facilitators = List.of(lock, glen, banks, richards, shaw, singer, uther, tyler, numen, zeldin);
     Activity SLA100A = new Activity("SLA100A", 50, List.of(glen, lock, banks, zeldin), List.of(numen, richards));
     Activity SLA100B = new Activity("SLA100B", 50, List.of(glen, lock, banks, zeldin), List.of(numen, richards));
     Activity SLA191A = new Activity("SLA191A", 50, List.of(glen, lock, banks, zeldin), List.of(numen, richards));
@@ -25,6 +26,7 @@ public class Reproduce {
     Activity SLA394 = new Activity("SLA394", 20, List.of(tyler, singer), List.of(richards, zeldin));
     Activity SLA449 = new Activity("SLA449", 60, List.of(tyler, singer, shaw), List.of(zeldin, uther));
     Activity SLA451 = new Activity("SLA451", 100, List.of(tyler, singer, shaw), List.of(zeldin, uther, richards, banks));
+    List<Activity> activities = List.of(SLA100A, SLA100B, SLA191A, SLA191B, SLA201, SLA291, SLA303, SLA394, SLA449, SLA451);
     Room slater003 = new Room("Slater", "Slater 003", 45);
     Room roman216 = new Room("Roman", "Roman 216", 30);
     Room loft206 = new Room("Loft", "Loft 206", 75);
@@ -34,6 +36,11 @@ public class Reproduce {
     Room beach301 = new Room("Beach", "Beach 301", 75);
     Room logos325 = new Room("Logos", "Logos 325", 450);
     Room frank119 = new Room("Frank", "Frank 119", 60);
+    List<Room> rooms = List.of(slater003, roman216, roman201, loft206, loft310, logos325, beach201, beach301, frank119);
+
+    private void firstGeneration() {
+
+    }
     
 
 }
