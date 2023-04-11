@@ -1,6 +1,8 @@
 package com.pottersfieldap.geneticAlgorithm;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Reproduce {
 
@@ -37,9 +39,26 @@ public class Reproduce {
     Room logos325 = new Room("Logos", "Logos 325", 450);
     Room frank119 = new Room("Frank", "Frank 119", 60);
     List<Room> rooms = List.of(slater003, roman216, roman201, loft206, loft310, logos325, beach201, beach301, frank119);
+    List<Schedule> generation = new ArrayList<>();
+    public void firstGeneration() {
+        Random r = new Random();
+        for (int i = 0; i < 100; i++) {
+            Schedule s = new Schedule();
+            List<Activity> activityList = new ArrayList<>();
+            for (Activity a : activities) {
+                a.setActive_facilitator(facilitators.get(r.nextInt(0, 10)));
+                a.setRoom(rooms.get(r.nextInt(0, 9)));
+                a.setTime(r.nextInt(0, 6));
+                activityList.add(a);
+            }
+            s.setActivityList(activityList);
+            generation.add(s);
+        }
 
-    private void firstGeneration() {
-
+        // Printing only
+        for (Schedule s : generation) {
+            System.out.println(s);
+        }
     }
     
 
