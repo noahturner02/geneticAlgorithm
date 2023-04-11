@@ -3,9 +3,9 @@ package com.pottersfieldap.geneticAlgorithm;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+// This is the class that contains most of the code for the genetic algorithm
 public class Reproduce {
-
+// Initialize all data from the problem description. Make them final, since this data will not change during algorithm.
     final Facilitator lock = new Facilitator("Lock");
     final Facilitator glen = new Facilitator("Glen");
     final Facilitator banks = new Facilitator("Banks");
@@ -40,21 +40,26 @@ public class Reproduce {
     final Room frank119 = new Room("Frank", "Frank 119", 60);
     final List<Room> rooms = List.of(slater003, roman216, roman201, loft206, loft310, logos325, beach201, beach301, frank119);
     final List<Integer> times = List.of(10, 11, 12, 1, 2, 3);
+    // Current generation. Contains all offspring schedules in the generation.
     List<Schedule> generation = new ArrayList<>();
+    // Complete history of generations. Add a generation once it is done.
+    List<List<Schedule>> generation_list = new ArrayList<>();
+    // Makes the first generation completely random. No parents to 'cross over'
     public void firstGeneration() {
         Random r = new Random();
+        // Make 100 children
         for (int i = 0; i < 100; i++) {
             Schedule s = new Schedule();
             List<Activity> activityList = new ArrayList<>();
-            for (Activity a : activities) {
-                Activity a_clone = (Activity) a.clone();
-                a_clone.setActive_facilitator(facilitators.get(r.nextInt(0, 10)));
-                a_clone.setRoom(rooms.get(r.nextInt(0, 9)));
-                a_clone.setTime(times.get(r.nextInt(0, 6)));
-                activityList.add(a_clone);
+            for (Activity a : activities) { // iterate through all activities offered
+                Activity a_clone = (Activity) a.clone(); // Clone the activity. copies existing info so we can edit the rest
+                a_clone.setActive_facilitator(facilitators.get(r.nextInt(0, 10))); // Select random facilitator
+                a_clone.setRoom(rooms.get(r.nextInt(0, 9))); // select random room
+                a_clone.setTime(times.get(r.nextInt(0, 6))); // select random time
+                activityList.add(a_clone); // add the clone to activity list
             }
-            s.setActivityList(activityList);
-            generation.add(s);
+            s.setActivityList(activityList); // add activity list to schedule object
+            generation.add(s); // child is now complete. add it to the generation
         }
 
         // Printing only
@@ -62,6 +67,7 @@ public class Reproduce {
             System.out.println(s);
         }
     }
+    
     
 
 }
