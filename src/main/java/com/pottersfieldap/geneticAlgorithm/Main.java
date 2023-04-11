@@ -1,4 +1,4 @@
-package main.java.com.pottersfieldap.geneticAlgorithm;
+package com.pottersfieldap.geneticAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;

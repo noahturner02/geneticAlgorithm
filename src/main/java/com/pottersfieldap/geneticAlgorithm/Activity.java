@@ -1,4 +1,4 @@
-package main.java.com.pottersfieldap.geneticAlgorithm;
+package com.pottersfieldap.geneticAlgorithm;
 import java.util.List;
 // Object form of the activities offered by SLA
 import java.util.HashMap;
