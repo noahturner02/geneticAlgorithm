@@ -164,5 +164,47 @@ public class Reproduce {
         }
         return 0;
     }
+    // Give a bonus for back to back classes for instructors.
+    private double consecutiveActivities(Schedule s) {
+        double consecutiveActivityBonus = 0;
+        for (Facilitator f : s.getActive_facilitators()) {
+            List<Integer> time_of_activities = new ArrayList<>();
+            for (Activity a : s.getActivityList()) {
+                if (a.getActive_facilitator().equals(f)) {
+                    time_of_activities.add(a.getTime());
+                }
+            }
+            for (int t : time_of_activities) {
+                switch (t) {
+                    case 10:
+                        if (time_of_activities.contains(11)) {
+                            consecutiveActivityBonus += 0.5;
+                        }
+                        break;
+                    case 11:
+                        if (time_of_activities.contains(12)) {
+                            consecutiveActivityBonus += 0.5;
+                        }
+                        break;
+                    case 12:
+                        if (time_of_activities.contains(1)) {
+                            consecutiveActivityBonus += 0.5;
+                        }
+                        break;
+                    case 1:
+                        if (time_of_activities.contains(2)) {
+                            consecutiveActivityBonus += 0.5;
+                        }
+                        break;
+                    case 2:
+                        if (time_of_activities.contains(3)) {
+                            consecutiveActivityBonus += 0.5;
+                        }
+                        break;
+                }
+            }
+        }
+        return consecutiveActivityBonus;
+    }
     
 }
