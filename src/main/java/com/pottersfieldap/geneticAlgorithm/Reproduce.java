@@ -208,7 +208,6 @@ public class Reproduce {
     }
     // Manage both sections of SLA100. If they are over 4 hours apart, bonus. If they are at the same time, penalty
     private double SLA100Sections(Schedule s) {
-        double score = 0;
         Activity SLA100A = s.getActivityByName("SLA100A");
         Activity SLA100B = s.getActivityByName("SLA100B");
 
@@ -219,7 +218,16 @@ public class Reproduce {
         }
         return 0;
     }
+    // Manage SLA191 sections. Bonus if over 4 hours apart, penalty if at the same time
     private double SLA191Sections(Schedule s) {
+        Activity SLA191A = s.getActivityByName("SLA191A");
+        Activity SLA191B = s.getActivityByName("SLA191B");
 
+        if (SLA191A.getTime() == SLA191B.getTime()) {
+            return -0.5;
+        } else if ((SLA191A.getTime() == 10 && SLA191B.getTime() == 3) || (SLA191A.getTime() == 3 && SLA191B.getTime() == 10)) {
+            return 0.5;
+        }
+        return 0;
     }
 }
