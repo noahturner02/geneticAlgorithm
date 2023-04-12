@@ -230,21 +230,48 @@ public class Reproduce {
         }
         return 0;
     }
+    // returns bonus if one section of 100 is consecutive with another section of 191. penalty if one class is in roman or beach and the other not.
     private double consecutiveSLA100191(Schedule s) {
         Activity SLA100A = s.getActivityByName("SLA100A");
         Activity SLA100B = s.getActivityByName("SLA100B");
         Activity SLA191A = s.getActivityByName("SLA191A");
         Activity SLA191B = s.getActivityByName("SLA191B");
-        int time100A = SLA100A.getTime();
-        int time100B = SLA100B.getTime();
-        int time191A = SLA191A.getTime();
-        int time191B = SLA191B.getTime();
 
-        // If a section of 100 is consecutive with a section of 191 on the 12 and 1 spots.
-        if (time100A == 12) {
-            if (time100B == 1) {
-                if (SLA100A.getRoom().building.equals("Roman") )
+
+        if (SLA100A.consecutiveWith(SLA191A)) { // if these two activities are consecutive
+            if ((romanOrBeach(SLA100A) && !romanOrBeach(SLA191A)) || (romanOrBeach(SLA191A) && !romanOrBeach(SLA100A))) { // if one is in roman or beach and the other isn't
+                return 0.1; // 0.5 for consecutive, -0.4 for long walk
+            } else {
+                return 0.5; // just 0.5 for consecutive
             }
+        } else if (SLA100B.consecutiveWith(SLA191A)) { // repeat for other combinations of 100 and 191 sections
+            if ((romanOrBeach(SLA100B) && !romanOrBeach(SLA191A)) || (romanOrBeach(SLA191A) && !romanOrBeach(SLA100B))) {
+                return 0.1;
+            } else {
+                return 0.5;
+            }
+        } else if (SLA191B.consecutiveWith(SLA100A)) {
+            if ((romanOrBeach(SLA100A) && !romanOrBeach(SLA191B)) || (romanOrBeach(SLA191B) && !romanOrBeach(SLA100A))) {
+                return 0.1;
+            } else {
+                return 0.5;
+            }
+        } else if (SLA100B.consecutiveWith(SLA191B)) {
+            if ((romanOrBeach(SLA100B) && !romanOrBeach(SLA191B)) || (romanOrBeach(SLA191B) && !romanOrBeach(SLA100B))) {
+                return 0.1;
+            } else {
+                return 0.5;
+            }
+        }
+        return 0;
+    }
+
+    private boolean romanOrBeach(Activity activity) {
+        String building = activity.getRoom().building;
+        if (building.equals("Roman") || building.equals("Beach")) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
