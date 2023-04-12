@@ -266,6 +266,10 @@ public class Reproduce {
         return 0;
     }
 
+    private double oneHourGapSLA100191(Schedule s) {
+
+    }
+
     private boolean romanOrBeach(Activity activity) {
         String building = activity.getRoom().building;
         if (building.equals("Roman") || building.equals("Beach")) {

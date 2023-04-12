@@ -42,23 +42,14 @@ public class Activity implements Cloneable {
         this.other_facilitators = other_facilitators;
     }
 
+    public int convertToTime(int startInt) {
+        System.out.println(((startInt % 13) + (startInt / 13)));
+        return (startInt % 13) + (startInt / 13);
+    }
+
     public boolean consecutiveWith(Activity a2) {
-        switch(this.time) {
-            case 12:
-                if (a2.getTime() == 1 || a2.getTime() == 11) {
-                    return true;
-                }
-                break;
-            case 1:
-                if (a2.getTime() == 12 || a2.getTime() == 2) {
-                    return true;
-                }
-                break;
-            default:
-                if (a2.getTime() == (this.time - 1) || a2.getTime() == (this.time + 1)) {
-                    return true;
-                }
-                break;
+        if (convertToTime(time) == convertToTime(a2.getTime() + 1) || convertToTime(time) == convertToTime(a2.getTime() - 1)) {
+            return true;
         }
         return false;
     }
