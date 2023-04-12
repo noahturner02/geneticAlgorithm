@@ -43,7 +43,6 @@ public class Activity implements Cloneable {
     }
 
     public static int convertToTime(int startInt) {
-        System.out.println(((startInt % 13) + (startInt / 13)));
         return (startInt % 13) + (startInt / 13);
     }
 
