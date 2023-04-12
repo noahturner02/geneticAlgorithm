@@ -82,6 +82,14 @@ public class Reproduce {
             activity_fitness += preferredFacilitator(a);
             total_fitness += activity_fitness;
         }
+        total_fitness += doubleBookedFacilitators(schedule);
+        total_fitness += numOfActivities(schedule);
+        total_fitness += consecutiveActivities(schedule);
+        total_fitness += SLA100Sections(schedule);
+        total_fitness += SLA191Sections(schedule);
+        total_fitness += consecutiveSLA100191(schedule);
+        total_fitness += oneHourGapSLA100191(schedule);
+        total_fitness += sameTimeSLA100191(schedule);
         return total_fitness;
     }
     // Check to see if activity is scheduled in the same room and same time as another activity
