@@ -35,4 +35,12 @@ public class Schedule {
         }
         return sb.toString();
     }
+
+    public Activity getActivityByName(String s) {
+        for (Activity a : activityList) {
+            if (a.name.equals(s)) {
+                return a;
+            }
+        }
+    }
 }

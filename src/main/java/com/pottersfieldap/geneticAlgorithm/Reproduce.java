@@ -206,5 +206,7 @@ public class Reproduce {
         }
         return consecutiveActivityBonus;
     }
-    
+//    private double SLA101Sections(Schedule s) {
+//
+//    }
 }
