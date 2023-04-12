@@ -206,7 +206,47 @@ public class Reproduce {
         }
         return consecutiveActivityBonus;
     }
-//    private double SLA101Sections(Schedule s) {
-//
-//    }
+    // Manage both sections of SLA100. If they are consecutive, bonus. if they are at the same time, penalty
+    private double SLA100Sections(Schedule s) {
+        double score = 0;
+        Activity SLA100A = s.getActivityByName("SLA100A");
+        Activity SLA100B = s.getActivityByName("SLA100B");
+        switch (SLA100A.getTime()) { // Check for adjacency.
+            case 10:
+                if (SLA100B.getTime() == 11) {
+                    return 0.5;
+                }
+                break;
+            case 11:
+                if (SLA100B.getTime() == 12 || SLA100B.getTime() == 10) {
+                    return 0.5;
+                }
+                break;
+            case 12:
+                if (SLA100B.getTime() == 1 || SLA100B.getTime() == 11) {
+                    return 0.5;
+                }
+                break;
+            case 1:
+                if (SLA100B.getTime() == 2 || SLA100B.getTime() == 12) {
+                    return 0.5;
+                }
+                break;
+            case 2:
+                if (SLA100B.getTime() == 3 || SLA100B.getTime() == 1) {
+                    return 0.5;
+                }
+                break;
+            case 3:
+                if (SLA100B.getTime() == 2) {
+                    return 0.5;
+                }
+                break;
+        }
+        if (SLA100A.getTime() == SLA100B.getTime()) {
+            return -0.5;
+        }
+        return 0;
+    }
+    
 }
