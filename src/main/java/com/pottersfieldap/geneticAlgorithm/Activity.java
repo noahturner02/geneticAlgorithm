@@ -42,7 +42,7 @@ public class Activity implements Cloneable {
         this.other_facilitators = other_facilitators;
     }
 
-    public int convertToTime(int startInt) {
+    public static int convertToTime(int startInt) {
         System.out.println(((startInt % 13) + (startInt / 13)));
         return (startInt % 13) + (startInt / 13);
     }
