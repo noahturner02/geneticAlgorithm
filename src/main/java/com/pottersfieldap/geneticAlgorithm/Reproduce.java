@@ -230,4 +230,21 @@ public class Reproduce {
         }
         return 0;
     }
+    private double consecutiveSLA100191(Schedule s) {
+        Activity SLA100A = s.getActivityByName("SLA100A");
+        Activity SLA100B = s.getActivityByName("SLA100B");
+        Activity SLA191A = s.getActivityByName("SLA191A");
+        Activity SLA191B = s.getActivityByName("SLA191B");
+        int time100A = SLA100A.getTime();
+        int time100B = SLA100B.getTime();
+        int time191A = SLA191A.getTime();
+        int time191B = SLA191B.getTime();
+
+        // If a section of 100 is consecutive with a section of 191 on the 12 and 1 spots.
+        if (time100A == 12) {
+            if (time100B == 1) {
+                if (SLA100A.getRoom().building.equals("Roman") )
+            }
+        }
+    }
 }
