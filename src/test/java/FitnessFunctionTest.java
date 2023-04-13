@@ -171,4 +171,24 @@ public class FitnessFunctionTest {
         // Neither case applies. Return 0
         assertEquals(fitnessFunction.SLA100Sections(s3), 0);
     }
+    @Test
+    @DisplayName("SLA191 Sections")
+    void testSLA191Sections() {
+        List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
+        List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 10, 3, 2, 3, 3, 2, 1, 3, 4));
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        System.out.println(s);
+        // Two sections are 4 hours apart. Should return 0.5
+        assertEquals(fitnessFunction.SLA191Sections(s), 0.5);
+        tList.set(3, 10);
+        Schedule s2 = initializeTestSchedule(fList, rList, tList);
+        // Two sections are at the same time. Should return -0.5
+        assertEquals(fitnessFunction.SLA191Sections(s2), -0.5);
+        tList.set(3, 12);
+        Schedule s3 = initializeTestSchedule(fList, rList, tList);
+        // Two sections are at diff times. Should return 0
+        assertEquals(fitnessFunction.SLA191Sections(s3), 0);
+    }
+
 }
