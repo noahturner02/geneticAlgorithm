@@ -28,7 +28,7 @@ public class GeneticAlgorithm {
     final Activity SLA394 = new Activity("SLA394", 20, List.of(tyler, singer), List.of(richards, zeldin));
     final Activity SLA449 = new Activity("SLA449", 60, List.of(tyler, singer, shaw), List.of(zeldin, uther));
     final Activity SLA451 = new Activity("SLA451", 100, List.of(tyler, singer, shaw), List.of(zeldin, uther, richards, banks));
-    final List<Activity> activities = List.of(SLA100A, SLA100B, SLA191A, SLA191B, SLA201, SLA291, SLA303, SLA394, SLA449, SLA451);
+    final List<Activity> activities = List.of(SLA100A, SLA100B, SLA191A, SLA191B, SLA201, SLA291, SLA303, SLA304, SLA394, SLA449, SLA451);
     final Room slater003 = new Room("Slater", "Slater 003", 45);
     final Room roman216 = new Room("Roman", "Roman 216", 30);
     final Room loft206 = new Room("Loft", "Loft 206", 75);
@@ -42,6 +42,16 @@ public class GeneticAlgorithm {
     final List<Integer> times = List.of(10, 11, 12, 1, 2, 3);
     // Complete history of generations. Add a generation once it is done.
     List<List<Schedule>> generation_list = new ArrayList<>();
+    public List<Activity> getActivities() {
+        return activities;
+    }
+    public List<Room> getRooms() {
+        return rooms;
+    }
+    public List<Facilitator> getFacilitators() {
+        return facilitators;
+    }
+
     public void geneticAlgorithm() {
         FitnessFunction f = new FitnessFunction();
         List<Schedule> generation = new ArrayList<>();
