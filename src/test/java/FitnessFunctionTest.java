@@ -45,6 +45,7 @@ public class FitnessFunctionTest {
     final List<Room> rooms = List.of(slater003, roman216, roman201, loft206, loft310, logos325, beach201, beach301, frank119);
     final List<Integer> times = List.of(10, 11, 12, 1, 2, 3);
     FitnessFunction fitnessFunction = new FitnessFunction();
+
     // Supply with 3 lists, each the size of activities: facilitators, rooms, and times. Each row in this set of lists is the data for an activity.
     private Schedule initializeTestSchedule(List<Facilitator> facilitatorList, List<Room> roomList, List<Integer> timeList) {
         List<Activity> activityList = new ArrayList<>();
@@ -77,5 +78,32 @@ public class FitnessFunctionTest {
         assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA394")), 0);
         assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA449")), 0);
         assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA451")), 0);
-        }
     }
+    @Test
+    @DisplayName("Room Size Analysis")
+    void testRoomSizeAnalysis() {
+        List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, tyler, lock, zeldin);
+        List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
+        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        System.out.println(s);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA100A")),0.3);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA100B")),0.3);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA191A")),-0.5);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA191B")),0.3);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA201")),-0.4);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA291")),-0.4);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA303")),-0.5);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA304")),-0.2);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA394")),-0.2);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA449")),0.3);
+        assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA451")),-0.5);
+    }
+//    @Test
+//    @DisplayName("Preferred Facilitator")
+//    void testPreferredFacilitator() {
+//        List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, tyler, lock, zeldin);
+//        List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
+//        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+//    }
+}
