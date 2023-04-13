@@ -57,8 +57,9 @@ public class GeneticAlgorithm {
         List<Schedule> generation = new ArrayList<>();
         firstGeneration(generation);
         for (Schedule s : generation) {
-            System.out.println(s);
-            System.out.println(f.fitnessFunction(s));
+            s.setFitness(f.fitnessFunction(s));
+            System.out.print(s);
+            System.out.println(s.getFitness());
         }
     }
     // Makes the first generation completely random. No parents to 'cross over'

@@ -7,6 +7,13 @@ import java.util.List;
 public class Schedule {
     private List<Activity> activityList = new ArrayList<>();
     private List<Facilitator> active_facilitators = new ArrayList<>();
+    private double fitness;
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
+    }
+    public double getFitness() {
+        return this.fitness;
+    }
     public List<Activity> getActivityList() {
         return activityList;
     }
