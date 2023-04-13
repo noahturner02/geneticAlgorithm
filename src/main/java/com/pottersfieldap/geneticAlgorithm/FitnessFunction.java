@@ -98,17 +98,17 @@ public class FitnessFunction {
                 activityCount.put(f, 1);
             }
         }
-
+        double total_penalty = 0;
         for (Facilitator f : activityCount.keySet()) {
             if (activityCount.get(f) > 4) {
-                return -0.5;
+                total_penalty -= 0.5;
             } else if (activityCount.get(f) <= 2) {
                 if (!f.equals(GeneticAlgorithm.tyler)) {
-                    return -0.4;
+                    total_penalty -= 0.4;
                 }
             }
         }
-        return 0;
+        return total_penalty;
     }
     // Give a bonus for back to back classes for instructors.
     public double consecutiveActivities(Schedule s) {
