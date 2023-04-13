@@ -69,7 +69,9 @@ public class GeneticAlgorithm {
         for (Schedule s : generation) {
             s.setFitness(f.fitnessFunction(s));
         }
-        rankGeneration(generation);
+        generation = rankGeneration(generation);
+        generation = cullGeneration(generation);
+        System.out.println(generation.size());
     }
     // Makes the first generation completely random. No parents to 'cross over'
     private void firstGeneration(List<Schedule> generation) {
@@ -87,10 +89,17 @@ public class GeneticAlgorithm {
             generation.add(new Schedule(activityList)); // child is now complete. add it to the generation
         }
     }
-    private void rankGeneration(List<Schedule> generation) {
+    // sort the generation by fitness
+    private List<Schedule> rankGeneration(List<Schedule> generation) {
         generation.sort(scheduleComparator);
-        for (Schedule s : generation) {
-            System.out.println(s.getFitness());
+        return generation;
+    }
+    // Kill off the lowest half of the generation
+    private List<Schedule> cullGeneration(List<Schedule> generation) {
+        List<Schedule> new_generation = new ArrayList<>();
+        for(int i = 0; i < generation.size() / 2; i++) {
+            new_generation.add(generation.get(i));
         }
+        return new_generation;
     }
 }
