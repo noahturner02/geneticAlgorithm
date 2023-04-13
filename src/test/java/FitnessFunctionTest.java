@@ -150,4 +150,25 @@ public class FitnessFunctionTest {
         System.out.println(s);
         assertEquals(fitnessFunction.consecutiveActivities(s), 1.5);
     }
+    @Test
+    @DisplayName("SLA100 Sections")
+    void testSLA100Sections() {
+        List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
+        List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 1, 2, 3, 3, 2, 1, 3, 4));
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        System.out.println(s);
+        // Two sections are over 4 hours apart, so function should return 0.5
+        assertEquals(fitnessFunction.SLA100Sections(s), 0.5);
+        // Set SLA100B to 10. Same time as 100A
+        tList.set(1, 10);
+        Schedule s2 = initializeTestSchedule(fList, rList, tList);
+        // Two sections are same time. Function should return -0.5
+        assertEquals(fitnessFunction.SLA100Sections(s2), -0.5);
+        // Set SLA100B to 12
+        tList.set(1, 12);
+        Schedule s3 = initializeTestSchedule(fList, rList, tList);
+        // Neither case applies. Return 0
+        assertEquals(fitnessFunction.SLA100Sections(s3), 0);
+    }
 }
