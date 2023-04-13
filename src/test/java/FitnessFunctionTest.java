@@ -84,7 +84,7 @@ public class FitnessFunctionTest {
     void testRoomSizeAnalysis() {
         List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, tyler, lock, zeldin);
         List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
-        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 3);
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA100A")),0.3);
@@ -104,7 +104,7 @@ public class FitnessFunctionTest {
     void testPreferredFacilitator() {
         List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, tyler, lock, zeldin);
         List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
-        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 3);
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA100A")), 0.5);
@@ -124,7 +124,7 @@ public class FitnessFunctionTest {
     void testDoubleBookedFacilitators() {
         List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin);
         List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
-        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 3);
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         assertEquals(fitnessFunction.doubleBookedFacilitators(s), 0.6, 0.0001);
@@ -135,7 +135,7 @@ public class FitnessFunctionTest {
     void testNumOfActivities() {
         List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin);
         List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
-        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 3);
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         assertEquals(fitnessFunction.numOfActivities(s), -2.4, .0001);
@@ -145,7 +145,7 @@ public class FitnessFunctionTest {
     void testConsecutiveActivities() {
         List<Facilitator> fList = List.of(glen, glen, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin);
         List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
-        List<Integer> tList = List.of(10, 2, 12, 1, 2, 1, 2, 2, 1, 3, 4);
+        List<Integer> tList = List.of(10, 2, 12, 1, 2, 1, 2, 2, 1, 3, 3);
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         assertEquals(fitnessFunction.consecutiveActivities(s), 1.5);
@@ -155,7 +155,7 @@ public class FitnessFunctionTest {
     void testSLA100Sections() {
         List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
         List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
-        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 1, 2, 3, 3, 2, 1, 3, 4));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 1, 2, 3, 3, 2, 1, 3, 3));
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         // Two sections are over 4 hours apart, so function should return 0.5
@@ -176,7 +176,7 @@ public class FitnessFunctionTest {
     void testSLA191Sections() {
         List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
         List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
-        List<Integer> tList = new ArrayList<>(List.of(10, 3, 10, 3, 2, 3, 3, 2, 1, 3, 4));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 10, 3, 2, 3, 3, 2, 1, 3, 3));
         Schedule s = initializeTestSchedule(fList, rList, tList);
         System.out.println(s);
         // Two sections are 4 hours apart. Should return 0.5
@@ -195,7 +195,7 @@ public class FitnessFunctionTest {
     void testConsecutiveSLA100191() {
         List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
         List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
-        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 11, 2, 3, 3, 2, 1, 3, 4));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 11, 2, 3, 3, 2, 1, 3, 3));
         Schedule s = initializeTestSchedule(fList, rList, tList);
         // SLA100A and SLA191B are consecutive, and they are both in Roman and Beach, so it should yield 0.5
         assertEquals(fitnessFunction.consecutiveSLA100191(s), 0.5);
@@ -213,7 +213,7 @@ public class FitnessFunctionTest {
     void testOneHourGapSLA100191() {
         List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
         List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
-        List<Integer> tList = new ArrayList<>(List.of(10, 11, 12, 3, 2, 3, 3, 2, 1, 3, 4));
+        List<Integer> tList = new ArrayList<>(List.of(10, 11, 12, 3, 2, 3, 3, 2, 1, 3, 3));
         Schedule s = initializeTestSchedule(fList, rList, tList);
         // SLA100A is 1 hour gap from SLA191A. Should return 0.25
         assertEquals(fitnessFunction.oneHourGapSLA100191(s), 0.25);
@@ -227,7 +227,7 @@ public class FitnessFunctionTest {
     void testSameTimeSLA100191() {
         List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
         List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
-        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 10, 2, 3, 3, 2, 1, 3, 4));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 10, 2, 3, 3, 2, 1, 3, 3));
         Schedule s = initializeTestSchedule(fList, rList, tList);
         // SLA100A and SLA191B are at the same time. -0.25 penalty
         assertEquals(fitnessFunction.sameTimeSLA100191(s), -0.25);
@@ -235,5 +235,15 @@ public class FitnessFunctionTest {
         Schedule s2 = initializeTestSchedule(fList, rList, tList);
         // Sections are at different times. return 0
         assertEquals(fitnessFunction.sameTimeSLA100191(s2), 0);
+    }
+    @Test
+    @DisplayName("Fitness Function Test")
+    void testFitnessFunction() {
+        List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
+        List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 10, 2, 3, 3, 2, 1, 3, 3));
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        // Computed fitness for this schedule should sum to -1.1
+        assertEquals(fitnessFunction.fitnessFunction(s), -1.1, .0001);
     }
 }
