@@ -1,6 +1,7 @@
 package com.pottersfieldap.geneticAlgorithm;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -42,6 +43,15 @@ public class GeneticAlgorithm {
     final List<Integer> times = List.of(10, 11, 12, 1, 2, 3);
     // Complete history of generations. Add a generation once it is done.
     List<List<Schedule>> generation_list = new ArrayList<>();
+    Comparator<Schedule> scheduleComparator = (Schedule s1, Schedule s2) -> {
+        if (s1.getFitness() > s2.getFitness()) {
+            return 1;
+        } else if (s1.getFitness() < s2.getFitness()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    };
     public List<Activity> getActivities() {
         return activities;
     }
@@ -58,9 +68,8 @@ public class GeneticAlgorithm {
         firstGeneration(generation);
         for (Schedule s : generation) {
             s.setFitness(f.fitnessFunction(s));
-            System.out.print(s);
-            System.out.println(s.getFitness());
         }
+        rankGeneration(generation);
     }
     // Makes the first generation completely random. No parents to 'cross over'
     private void firstGeneration(List<Schedule> generation) {
@@ -78,7 +87,10 @@ public class GeneticAlgorithm {
             generation.add(new Schedule(activityList)); // child is now complete. add it to the generation
         }
     }
-    private void selection() {
-
+    private void rankGeneration(List<Schedule> generation) {
+        generation.sort(scheduleComparator);
+        for (Schedule s : generation) {
+            System.out.println(s.getFitness());
+        }
     }
 }
