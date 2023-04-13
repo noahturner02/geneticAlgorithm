@@ -66,7 +66,7 @@ public class GeneticAlgorithm {
     private void firstGeneration(List<Schedule> generation) {
         Random r = new Random();
         // Make 100 children
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             List<Activity> activityList = new ArrayList<>();
             for (Activity a : activities) { // iterate through all activities offered
                 Activity a_clone = (Activity) a.clone(); // Clone the activity. copies existing info so we can edit the rest
@@ -77,5 +77,8 @@ public class GeneticAlgorithm {
             }
             generation.add(new Schedule(activityList)); // child is now complete. add it to the generation
         }
+    }
+    private void selection() {
+
     }
 }
