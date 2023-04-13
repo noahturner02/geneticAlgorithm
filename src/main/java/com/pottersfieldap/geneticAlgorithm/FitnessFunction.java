@@ -214,18 +214,8 @@ public class FitnessFunction {
     }
     // give bonus if one section for 100 is an hour gap from a section of 191
     public double oneHourGapSLA100191(Schedule s) {
-        List<Activity> SLA100 = new ArrayList<>() {
-            {
-                s.getActivityByName("SLA100A");
-                s.getActivityByName("SLA100B");
-            }
-        };
-        List<Activity> SLA191 = new ArrayList<>() {
-            {
-                s.getActivityByName("SLA191A");
-                s.getActivityByName("SLA191B");
-            }
-        };
+        List<Activity> SLA100 = new ArrayList<>(List.of(s.getActivityByName("SLA100A"), s.getActivityByName("SLA100B")));
+        List<Activity> SLA191 = new ArrayList<>(List.of(s.getActivityByName("SLA191A"), s.getActivityByName("SLA191B")));
         for (Activity a100 : SLA100) {
             for (Activity a191 : SLA191) {
                 if (Activity.convertToTime(a100.getTime()) == Activity.convertToTime(a191.getTime() + 2) || (Activity.convertToTime(a100.getTime()) == Activity.convertToTime(a191.getTime() - 2))) {

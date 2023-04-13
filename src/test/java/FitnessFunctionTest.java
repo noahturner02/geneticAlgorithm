@@ -208,5 +208,19 @@ public class FitnessFunctionTest {
         // Two sections are not consecutive. Should return 0
         assertEquals(fitnessFunction.consecutiveSLA100191(s3), 0);
     }
+    @Test
+    @DisplayName("One Hour Gap Between SLA100 and SLA191")
+    void testOneHourGapSLA100191() {
+        List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
+        List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
+        List<Integer> tList = new ArrayList<>(List.of(10, 11, 12, 3, 2, 3, 3, 2, 1, 3, 4));
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        // SLA100A is 1 hour gap from SLA191A. Should return 0.25
+        assertEquals(fitnessFunction.oneHourGapSLA100191(s), 0.25);
+        tList.set(0, 11);
+        Schedule s2 = initializeTestSchedule(fList, rList, tList);
+        // There is no 1 hr gap between sections. Return 0
+        assertEquals(fitnessFunction.oneHourGapSLA100191(s2), 0);
+    }
 
 }
