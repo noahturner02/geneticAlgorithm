@@ -67,17 +67,23 @@ public class FitnessFunction {
     // Checks to see if facilitators are double booked or not. If not, it's a bonus. If they are, it's a penalty
     public double doubleBookedFacilitators(Schedule s) {
         double doubleBookedBonus = 0;
-        Set<Integer> time_set = new HashSet<>();
         for (Facilitator f : s.getActive_facilitators()) {
+            Set<Integer> time_set = new HashSet<>();
+            boolean no_conflict = true;
             for (Activity a : s.getActivityList()) {
-                if (!time_set.contains(a.getTime())) {
-                    time_set.add(a.getTime());
-                } else {
-                    doubleBookedBonus -= 0.2;
-                    break;
+                if (a.getActive_facilitator().equals(f)) {
+                    if (!time_set.contains(a.getTime())) {
+                        time_set.add(a.getTime());
+                    } else {
+                        doubleBookedBonus -= 0.2;
+                        no_conflict = false;
+                        break;
+                    }
                 }
             }
-            doubleBookedBonus += 0.2;
+            if (no_conflict) {
+                doubleBookedBonus += 0.2;
+            }
         }
         return doubleBookedBonus;
     }
