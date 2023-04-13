@@ -120,6 +120,7 @@ public class FitnessFunction {
                     time_of_activities.add(a.getTime());
                 }
             }
+
             for (int t : time_of_activities) {
                 switch (t) {
                     case 10:

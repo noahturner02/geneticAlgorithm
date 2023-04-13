@@ -140,4 +140,14 @@ public class FitnessFunctionTest {
         System.out.println(s);
         assertEquals(fitnessFunction.numOfActivities(s), -2.4, .0001);
     }
+    @Test
+    @DisplayName("Consecutive Activities Test")
+    void testConsecutiveActivities() {
+        List<Facilitator> fList = List.of(glen, glen, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin);
+        List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
+        List<Integer> tList = List.of(10, 2, 12, 1, 2, 1, 2, 2, 1, 3, 4);
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        System.out.println(s);
+        assertEquals(fitnessFunction.consecutiveActivities(s), 1.5);
+    }
 }
