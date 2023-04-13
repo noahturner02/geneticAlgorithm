@@ -99,11 +99,24 @@ public class FitnessFunctionTest {
         assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA449")),0.3);
         assertEquals(fitnessFunction.roomSizeAnalysis(s.getActivityByName("SLA451")),-0.5);
     }
-//    @Test
-//    @DisplayName("Preferred Facilitator")
-//    void testPreferredFacilitator() {
-//        List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, tyler, lock, zeldin);
-//        List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
-//        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
-//    }
+    @Test
+    @DisplayName("Preferred Facilitator")
+    void testPreferredFacilitator() {
+        List<Facilitator> fList = List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, tyler, lock, zeldin);
+        List<Room> rList = List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301);
+        List<Integer> tList = List.of(10, 11, 12, 1, 2, 3, 3, 2, 1, 3, 4);
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        System.out.println(s);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA100A")), 0.5);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA100B")), 0.2);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA191A")), -0.1);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA191B")), -0.1);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA201")), -0.1);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA291")), 0.2);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA303")), 0.2);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA304")), -0.1);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA394")), 0.5);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA449")), -0.1);
+        assertEquals(fitnessFunction.preferredFacilitator(s.getActivityByName("SLA451")), 0.2);
+    }
 }
