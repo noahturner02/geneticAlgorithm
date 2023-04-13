@@ -190,5 +190,23 @@ public class FitnessFunctionTest {
         // Two sections are at diff times. Should return 0
         assertEquals(fitnessFunction.SLA191Sections(s3), 0);
     }
+    @Test
+    @DisplayName("Consecutive SLA100 & SLA191 Sections")
+    void testConsecutiveSLA100191() {
+        List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
+        List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 11, 2, 3, 3, 2, 1, 3, 4));
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        // SLA100A and SLA191B are consecutive, and they are both in Roman and Beach, so it should yield 0.5
+        assertEquals(fitnessFunction.consecutiveSLA100191(s), 0.5);
+        rList.set(0, logos325);
+        Schedule s2 = initializeTestSchedule(fList, rList, tList);
+        // SLA100A and SLA 191B are consecutive, but one is in Beach while the other is in Logos. Should return 0.1
+        assertEquals(fitnessFunction.consecutiveSLA100191(s2), 0.1);
+        tList.set(0, 2);
+        Schedule s3 = initializeTestSchedule(fList, rList, tList);
+        // Two sections are not consecutive. Should return 0
+        assertEquals(fitnessFunction.consecutiveSLA100191(s3), 0);
+    }
 
 }
