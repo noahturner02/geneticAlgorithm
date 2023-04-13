@@ -1,6 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.pottersfieldap.geneticAlgorithm.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -42,15 +44,38 @@ public class FitnessFunctionTest {
     final Room frank119 = new Room("Frank", "Frank 119", 60);
     final List<Room> rooms = List.of(slater003, roman216, roman201, loft206, loft310, logos325, beach201, beach301, frank119);
     final List<Integer> times = List.of(10, 11, 12, 1, 2, 3);
-
+    FitnessFunction fitnessFunction = new FitnessFunction();
+    // Supply with 3 lists, each the size of activities: facilitators, rooms, and times. Each row in this set of lists is the data for an activity.
     private Schedule initializeTestSchedule(List<Facilitator> facilitatorList, List<Room> roomList, List<Integer> timeList) {
         List<Activity> activityList = new ArrayList<>();
-        for (int i = 0; i < activityList.size(); i++) {
-            Activity a = (Activity) activityList.get(i).clone();
+        for (int i = 0; i < activities.size(); i++) {
+            Activity a = (Activity) activities.get(i).clone();
             a.setActive_facilitator(facilitatorList.get(i));
             a.setRoom(roomList.get(i));
             a.setTime(timeList.get(i));
+            activityList.add(a);
         }
         return new Schedule(activityList);
     }
-}
+
+    @Test
+    @DisplayName("Double Booked Activity")
+    void testDoubleBooked() {
+        List<Facilitator> fList = List.of(glen, uther, uther, uther, uther, richards, lock, lock, singer, shaw, singer);
+        List<Room> rList = List.of(beach201, beach201, beach301, roman216, beach301, beach301, loft310, beach301, roman216, roman201, frank119);
+        List<Integer> tList = List.of(2, 2, 10, 1, 1, 11, 1, 3, 10, 11, 1);
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        System.out.println(s);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA100A")), -0.25);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA100B")), -0.25);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA191A")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA191B")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA201")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA291")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA303")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA304")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA394")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA449")), 0);
+        assertEquals(fitnessFunction.doubleBookedActivity(s, s.getActivityByName("SLA451")), 0);
+        }
+    }

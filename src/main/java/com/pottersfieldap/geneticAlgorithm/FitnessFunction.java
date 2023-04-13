@@ -25,7 +25,7 @@ public class FitnessFunction {
         return total_fitness;
     }
     // Check to see if activity is scheduled in the same room and same time as another activity
-    private double doubleBookedActivity(Schedule s, Activity activity) {
+    public double doubleBookedActivity(Schedule s, Activity activity) {
         int time = activity.getTime();
         Room room = activity.getRoom();
         for (Activity a: s.getActivityList()) {
@@ -42,7 +42,7 @@ public class FitnessFunction {
         return 0;
     }
     // Analyzes the size of the room. penalty for absurdly large rooms, or for too small rooms, benefit otherwise;
-    private double roomSizeAnalysis(Activity a) {
+    public double roomSizeAnalysis(Activity a) {
         Room room = a.getRoom();
         if (room.getCapacity() >= (a.getExpected_enrollment() * 6)) {
             return -0.4;
@@ -55,7 +55,7 @@ public class FitnessFunction {
         }
     }
     // Assesses fitness of the choice for facilitator. bonus if preferred or other, penalty otherwise
-    private double preferredFacilitator(Activity a) {
+    public double preferredFacilitator(Activity a) {
         if (a.preferred_facilitators.contains(a.getActive_facilitator())) {
             return 0.5;
         } else if (a.other_facilitators.contains(a.getActive_facilitator())) {
@@ -65,7 +65,7 @@ public class FitnessFunction {
         }
     }
     // Checks to see if facilitators are double booked or not. If not, it's a bonus. If they are, it's a penalty
-    private double doubleBookedFacilitators(Schedule s) {
+    public double doubleBookedFacilitators(Schedule s) {
         double doubleBookedBonus = 0;
         Set<Integer> time_set = new HashSet<>();
         for (Facilitator f : s.getActive_facilitators()) {
@@ -82,7 +82,7 @@ public class FitnessFunction {
         return doubleBookedBonus;
     }
     // Handles penalties for overloaded or underloaded facilitators.
-    private double numOfActivities(Schedule s) {
+    public double numOfActivities(Schedule s) {
         HashMap<Facilitator, Integer> activityCount = new HashMap<>();
         for (Activity a : s.getActivityList()) {
             Facilitator f = a.getActive_facilitator();
@@ -105,7 +105,7 @@ public class FitnessFunction {
         return 0;
     }
     // Give a bonus for back to back classes for instructors.
-    private double consecutiveActivities(Schedule s) {
+    public double consecutiveActivities(Schedule s) {
         double consecutiveActivityBonus = 0;
         for (Facilitator f : s.getActive_facilitators()) {
             List<Integer> time_of_activities = new ArrayList<>();
@@ -147,7 +147,7 @@ public class FitnessFunction {
         return consecutiveActivityBonus;
     }
     // Manage both sections of SLA100. If they are over 4 hours apart, bonus. If they are at the same time, penalty
-    private double SLA100Sections(Schedule s) {
+    public double SLA100Sections(Schedule s) {
         Activity SLA100A = s.getActivityByName("SLA100A");
         Activity SLA100B = s.getActivityByName("SLA100B");
 
@@ -159,7 +159,7 @@ public class FitnessFunction {
         return 0;
     }
     // Manage SLA191 sections. Bonus if over 4 hours apart, penalty if at the same time
-    private double SLA191Sections(Schedule s) {
+    public double SLA191Sections(Schedule s) {
         Activity SLA191A = s.getActivityByName("SLA191A");
         Activity SLA191B = s.getActivityByName("SLA191B");
 
@@ -171,7 +171,7 @@ public class FitnessFunction {
         return 0;
     }
     // returns bonus if one section of 100 is consecutive with another section of 191. penalty if one class is in roman or beach and the other not.
-    private double consecutiveSLA100191(Schedule s) {
+    public double consecutiveSLA100191(Schedule s) {
         Activity SLA100A = s.getActivityByName("SLA100A");
         Activity SLA100B = s.getActivityByName("SLA100B");
         Activity SLA191A = s.getActivityByName("SLA191A");
@@ -206,7 +206,7 @@ public class FitnessFunction {
         return 0;
     }
     // give bonus if one section for 100 is an hour gap from a section of 191
-    private double oneHourGapSLA100191(Schedule s) {
+    public double oneHourGapSLA100191(Schedule s) {
         List<Activity> SLA100 = new ArrayList<>() {
             {
                 s.getActivityByName("SLA100A");
@@ -238,7 +238,7 @@ public class FitnessFunction {
         }
     }
 
-    private double sameTimeSLA100191(Schedule s) {
+    public double sameTimeSLA100191(Schedule s) {
         List<Activity> SLA100 = new ArrayList<>() {
             {
                 s.getActivityByName("SLA100A");
