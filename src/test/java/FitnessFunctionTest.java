@@ -222,5 +222,18 @@ public class FitnessFunctionTest {
         // There is no 1 hr gap between sections. Return 0
         assertEquals(fitnessFunction.oneHourGapSLA100191(s2), 0);
     }
-
+    @Test
+    @DisplayName("Same Time SLA100 and SLA191")
+    void testSameTimeSLA100191() {
+        List<Facilitator> fList = new ArrayList<>(List.of(glen, richards, shaw, singer, uther, shaw, shaw, lock, singer, lock, zeldin));
+        List<Room> rList = new ArrayList<>(List.of(beach201, beach301, roman216, roman201, logos325, logos325, roman216, loft310, loft206, beach201, beach301));
+        List<Integer> tList = new ArrayList<>(List.of(10, 3, 12, 10, 2, 3, 3, 2, 1, 3, 4));
+        Schedule s = initializeTestSchedule(fList, rList, tList);
+        // SLA100A and SLA191B are at the same time. -0.25 penalty
+        assertEquals(fitnessFunction.sameTimeSLA100191(s), -0.25);
+        tList.set(0, 3);
+        Schedule s2 = initializeTestSchedule(fList, rList, tList);
+        // Sections are at different times. return 0
+        assertEquals(fitnessFunction.sameTimeSLA100191(s2), 0);
+    }
 }

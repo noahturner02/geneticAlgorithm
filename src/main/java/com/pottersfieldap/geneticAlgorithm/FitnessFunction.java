@@ -236,18 +236,8 @@ public class FitnessFunction {
     }
 
     public double sameTimeSLA100191(Schedule s) {
-        List<Activity> SLA100 = new ArrayList<>() {
-            {
-                s.getActivityByName("SLA100A");
-                s.getActivityByName("SLA100B");
-            }
-        };
-        List<Activity> SLA191 = new ArrayList<>() {
-            {
-                s.getActivityByName("SLA191A");
-                s.getActivityByName("SLA191B");
-            }
-        };
+        List<Activity> SLA100 = new ArrayList<>(List.of(s.getActivityByName("SLA100A"), s.getActivityByName("SLA100B")));
+        List<Activity> SLA191 = new ArrayList<>(List.of(s.getActivityByName("SLA191A"), s.getActivityByName("SLA191B")));
         for (Activity a100 : SLA100) {
             for (Activity a191 : SLA191) {
                 if (a100.getTime() == a191.getTime()) {
