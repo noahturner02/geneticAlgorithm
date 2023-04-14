@@ -52,6 +52,7 @@ public class GeneticAlgorithm {
             return 0;
         }
     };
+    int mutation_rate = 100; // 1/100 chance for activity to mutate
     public List<Activity> getActivities() {
         return activities;
     }
@@ -109,19 +110,37 @@ public class GeneticAlgorithm {
         int dividing_line;
         for (int i = 0; i < generation.size(); i++) {
             Schedule father = generation.get(i);
-            Schedule mother = generation.get(r.nextInt(0, 501));
+            Schedule mother = generation.get(r.nextInt(0, 500));
             List<Activity> childActivityList = new ArrayList<>();
             dividing_line = r.nextInt(0, 11);
             for (int j = 0; j < father.getActivityList().size(); j++) {
+                Activity newActivity;
                 if (j < dividing_line) {
-                    childActivityList.add(father.getActivityList().get(j));
+                    newActivity = father.getActivityList().get(j);
                 } else {
-                    childActivityList.add(mother.getActivityList().get(j));
+                    newActivity = mother.getActivityList().get(j);
                 }
+                newActivity = mutate(newActivity);
+                childActivityList.add(newActivity);
             }
             offspring.add(new Schedule(childActivityList));
         }
         generation.addAll(offspring);
         return generation;
+    }
+
+    private Activity mutate(Activity activity) {
+        Random r = new Random();
+        if (r.nextInt(0, mutation_rate) == 0) {
+            int attribute_selection = r.nextInt(0, 3);
+            if (attribute_selection == 0) {
+                activity.setActive_facilitator(facilitators.get(r.nextInt(0, 10)));
+            } else if (attribute_selection == 1) {
+                activity.setRoom(rooms.get(r.nextInt(0, 9)));
+            } else {
+                activity.setTime(times.get(r.nextInt(0, 6)));
+            }
+        }
+        return activity;
     }
 }
