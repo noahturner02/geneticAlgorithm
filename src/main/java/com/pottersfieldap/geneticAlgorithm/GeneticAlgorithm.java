@@ -68,10 +68,13 @@ public class GeneticAlgorithm {
 
     public void geneticAlgorithm() {
         FitnessFunction f = new FitnessFunction();
-        for (int i = 0; i < 100; i++) {
+        boolean stable = false;
+        boolean first_gen_flag = true;
+        while (!stable) {
             List<Schedule> generation = new ArrayList<>();
-            if (i == 0) {
+            if (first_gen_flag) {
                 generation = firstGeneration();
+                first_gen_flag = false;
             } else {
                 generation = generation_list.get(generation_list.size() - 1);
             }
@@ -85,6 +88,7 @@ public class GeneticAlgorithm {
             System.out.println("Best Probability in Generation: " + generation.get(0).getProbability());
             System.out.println("Average Fitness of Generation: " + averageFitness(generation));
             tweakMutationRate();
+            stable = resultsStable();
             generation = cullGeneration(generation);
             generation = nextGeneration(generation);
             generation_list.add(generation);
@@ -195,11 +199,10 @@ public class GeneticAlgorithm {
             List<Schedule> almost_latest = generation_list.get(generation_list.size() - 2);
             double fitness_growth = averageFitness(latest) - averageFitness(almost_latest);
             double target_fitness_growth = averageFitness(G100) * 0.01;
-            if (fitness_growth >= target_fitness_growth) {
-                return false;
-            } else {
+            if (fitness_growth <= target_fitness_growth) {
                 return true;
             }
         }
+        return false;
     }
 }
