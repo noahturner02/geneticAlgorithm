@@ -1,5 +1,8 @@
 package com.pottersfieldap.geneticAlgorithm;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -204,5 +207,16 @@ public class GeneticAlgorithm {
             }
         }
         return false;
+    }
+    private void printResultsToFile() {
+        Schedule bestSchedule = generation_list.get(generation_list.size() - 1).get(0);
+        try {
+            FileWriter fileWriter = new FileWriter("output.txt");
+            fileWriter.write(bestSchedule.toString());
+            fileWriter.write("Fitness Score: " + bestSchedule.getFitness());
+            fileWriter.close()
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
