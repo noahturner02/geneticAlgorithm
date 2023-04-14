@@ -162,9 +162,7 @@ public class GeneticAlgorithm {
         for (Schedule s1 : generation) {
             double total = 0; // denominator of softmax
             for (Schedule s2 : generation) {
-                if (!s1.equals(s2)) {
-                    total += Math.exp(s2.getFitness());
-                }
+                total += Math.exp(s2.getFitness());
             }
             s1.setProbability(Math.exp(s1.getFitness()) / total);
         }
