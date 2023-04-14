@@ -81,8 +81,10 @@ public class GeneticAlgorithm {
             generation = softMaxNormalize(generation);
             generation = rankGeneration(generation);
             System.out.println(generation.get(0));
-            System.out.println(generation.get(0).getFitness());
-            System.out.println(generation.get(0).getProbability());
+            System.out.println("Best Fitness in Generation: " + generation.get(0).getFitness());
+            System.out.println("Best Probability in Generation: " + generation.get(0).getProbability());
+            System.out.println("Average Fitness of Generation: " + averageFitness(generation));
+            tweakMutationRate();
             generation = cullGeneration(generation);
             generation = nextGeneration(generation);
             generation_list.add(generation);
@@ -174,5 +176,16 @@ public class GeneticAlgorithm {
             sum += s.getFitness();
         }
         return sum / generation.size();
+    }
+    private void tweakMutationRate() {
+        if (generation_list.size() < 2) {
+            return;
+        }
+        List<Schedule> parentGen = generation_list.get(generation_list.size() - 2);
+        List<Schedule> childGen = generation_list.get(generation_list.size() - 1);
+        if ((averageFitness(childGen) - averageFitness(parentGen)) >= 0.5) {
+            halveMutationRate();
+            System.out.println("Tweak. Mutation rate is now 1 / " + mutation_rate);
+        }
     }
 }
