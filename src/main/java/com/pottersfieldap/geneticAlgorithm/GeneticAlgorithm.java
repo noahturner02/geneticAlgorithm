@@ -79,8 +79,10 @@ public class GeneticAlgorithm {
                 s.setFitness(f.fitnessFunction(s));
             }
             generation = rankGeneration(generation);
+            generation = softMaxNormalize(generation);
             System.out.println(generation.get(0));
             System.out.println(generation.get(0).getFitness());
+            System.out.println(generation.get(0).getProbability());
             generation = cullGeneration(generation);
             generation = nextGeneration(generation);
             generation_list.add(generation);
@@ -155,5 +157,17 @@ public class GeneticAlgorithm {
             }
         }
         return activity;
+    }
+    public List<Schedule> softMaxNormalize(List<Schedule> generation) {
+        for (Schedule s1 : generation) {
+            double total = 0; // denominator of softmax
+            for (Schedule s2 : generation) {
+                if (!s1.equals(s2)) {
+                    total += Math.exp(s2.getFitness());
+                }
+            }
+            s1.setProbability(Math.exp(s1.getFitness()) / total);
+        }
+        return generation;
     }
 }

@@ -8,11 +8,18 @@ public class Schedule {
     private List<Activity> activityList = new ArrayList<>();
     private List<Facilitator> active_facilitators = new ArrayList<>();
     private double fitness;
+    private double probability;
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
     public double getFitness() {
         return this.fitness;
+    }
+    public void setProbability(double probability) {
+        this.probability = probability;
+    }
+    public double getProbability() {
+        return probability;
     }
     public List<Activity> getActivityList() {
         return activityList;
