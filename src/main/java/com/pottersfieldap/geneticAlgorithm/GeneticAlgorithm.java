@@ -188,4 +188,18 @@ public class GeneticAlgorithm {
             System.out.println("Tweak. Mutation rate is now 1 / " + mutation_rate);
         }
     }
+    private boolean resultsStable() {
+        if (generation_list.size() >= 100) {
+            List<Schedule> G100 = generation_list.get(99);
+            List<Schedule> latest = generation_list.get(generation_list.size() - 1);
+            List<Schedule> almost_latest = generation_list.get(generation_list.size() - 2);
+            double fitness_growth = averageFitness(latest) - averageFitness(almost_latest);
+            double target_fitness_growth = averageFitness(G100) * 0.01;
+            if (fitness_growth >= target_fitness_growth) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 }
