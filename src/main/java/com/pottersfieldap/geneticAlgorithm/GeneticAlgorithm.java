@@ -45,9 +45,9 @@ public class GeneticAlgorithm {
     List<List<Schedule>> generation_list = new ArrayList<>();
     Comparator<Schedule> scheduleComparator = (Schedule s1, Schedule s2) -> {
         if (s1.getFitness() > s2.getFitness()) {
-            return 1;
-        } else if (s1.getFitness() < s2.getFitness()) {
             return -1;
+        } else if (s1.getFitness() < s2.getFitness()) {
+            return 1;
         } else {
             return 0;
         }
@@ -71,9 +71,11 @@ public class GeneticAlgorithm {
             s.setFitness(f.fitnessFunction(s));
         }
         generation = rankGeneration(generation);
+        System.out.println(generation.get(0).getFitness());
         generation = cullGeneration(generation);
         generation = nextGeneration(generation);
-        System.out.println(generation.size());
+        generation = rankGeneration(generation);
+        System.out.println(generation.get(0).getFitness());
     }
     // Makes the first generation completely random. No parents to 'cross over'
     private void firstGeneration(List<Schedule> generation) {
