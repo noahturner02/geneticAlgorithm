@@ -76,6 +76,7 @@ public class GeneticAlgorithm {
                 s.setFitness(f.fitnessFunction(s));
             }
             generation = rankGeneration(generation);
+            //System.out.println(generation.get(0));
             System.out.println(generation.get(0).getFitness());
             generation = cullGeneration(generation);
             generation = nextGeneration(generation);
@@ -125,9 +126,9 @@ public class GeneticAlgorithm {
             for (int j = 0; j < father.getActivityList().size(); j++) {
                 Activity newActivity;
                 if (j < dividing_line) {
-                    newActivity = father.getActivityList().get(j);
+                    newActivity = (Activity) father.getActivityList().get(j).clone();
                 } else {
-                    newActivity = mother.getActivityList().get(j);
+                    newActivity = (Activity) mother.getActivityList().get(j).clone();
                 }
                 newActivity = mutate(newActivity);
                 childActivityList.add(newActivity);
