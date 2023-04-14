@@ -44,9 +44,9 @@ public class GeneticAlgorithm {
     // Complete history of generations. Add a generation once it is done.
     List<List<Schedule>> generation_list = new ArrayList<>();
     Comparator<Schedule> scheduleComparator = (Schedule s1, Schedule s2) -> {
-        if (s1.getFitness() > s2.getFitness()) {
+        if (s1.getProbability() > s2.getProbability()) {
             return -1;
-        } else if (s1.getFitness() < s2.getFitness()) {
+        } else if (s1.getProbability() < s2.getProbability()) {
             return 1;
         } else {
             return 0;
@@ -78,8 +78,8 @@ public class GeneticAlgorithm {
             for (Schedule s : generation) {
                 s.setFitness(f.fitnessFunction(s));
             }
-            generation = rankGeneration(generation);
             generation = softMaxNormalize(generation);
+            generation = rankGeneration(generation);
             System.out.println(generation.get(0));
             System.out.println(generation.get(0).getFitness());
             System.out.println(generation.get(0).getProbability());
