@@ -65,21 +65,27 @@ public class GeneticAlgorithm {
 
     public void geneticAlgorithm() {
         FitnessFunction f = new FitnessFunction();
-        List<Schedule> generation = new ArrayList<>();
-        firstGeneration(generation);
-        for (Schedule s : generation) {
-            s.setFitness(f.fitnessFunction(s));
+        for (int i = 0; i < 100; i++) {
+            List<Schedule> generation = new ArrayList<>();
+            if (i == 0) {
+                generation = firstGeneration();
+            } else {
+                generation = generation_list.get(generation_list.size() - 1);
+            }
+            for (Schedule s : generation) {
+                s.setFitness(f.fitnessFunction(s));
+            }
+            generation = rankGeneration(generation);
+            System.out.println(generation.get(0).getFitness());
+            generation = cullGeneration(generation);
+            generation = nextGeneration(generation);
+            generation_list.add(generation);
         }
-        generation = rankGeneration(generation);
-        System.out.println(generation.get(0).getFitness());
-        generation = cullGeneration(generation);
-        generation = nextGeneration(generation);
-        generation = rankGeneration(generation);
-        System.out.println(generation.get(0).getFitness());
     }
     // Makes the first generation completely random. No parents to 'cross over'
-    private void firstGeneration(List<Schedule> generation) {
+    private List<Schedule> firstGeneration() {
         Random r = new Random();
+        List<Schedule> generation = new ArrayList<>();
         // Make 100 children
         for (int i = 0; i < 1000; i++) {
             List<Activity> activityList = new ArrayList<>();
@@ -92,6 +98,7 @@ public class GeneticAlgorithm {
             }
             generation.add(new Schedule(activityList)); // child is now complete. add it to the generation
         }
+        return generation;
     }
     // sort the generation by fitness
     private List<Schedule> rankGeneration(List<Schedule> generation) {
