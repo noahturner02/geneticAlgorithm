@@ -71,6 +71,7 @@ public class GeneticAlgorithm {
         }
         generation = rankGeneration(generation);
         generation = cullGeneration(generation);
+        generation = nextGeneration(generation);
         System.out.println(generation.size());
     }
     // Makes the first generation completely random. No parents to 'cross over'
@@ -101,5 +102,26 @@ public class GeneticAlgorithm {
             new_generation.add(generation.get(i));
         }
         return new_generation;
+    }
+    private List<Schedule> nextGeneration(List<Schedule> generation) {
+        List<Schedule> offspring = new ArrayList<>();
+        Random r = new Random();
+        int dividing_line;
+        for (int i = 0; i < generation.size(); i++) {
+            Schedule father = generation.get(i);
+            Schedule mother = generation.get(r.nextInt(0, 501));
+            List<Activity> childActivityList = new ArrayList<>();
+            dividing_line = r.nextInt(0, 11);
+            for (int j = 0; j < father.getActivityList().size(); j++) {
+                if (j < dividing_line) {
+                    childActivityList.add(father.getActivityList().get(j));
+                } else {
+                    childActivityList.add(mother.getActivityList().get(j));
+                }
+            }
+            offspring.add(new Schedule(childActivityList));
+        }
+        generation.addAll(offspring);
+        return generation;
     }
 }
