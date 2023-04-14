@@ -168,4 +168,11 @@ public class GeneticAlgorithm {
         }
         return generation;
     }
+    private double averageFitness(List<Schedule> generation) {
+        double sum = 0;
+        for (Schedule s : generation) {
+            sum += s.getFitness();
+        }
+        return sum / generation.size();
+    }
 }
