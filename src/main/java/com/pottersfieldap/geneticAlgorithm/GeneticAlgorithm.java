@@ -96,6 +96,7 @@ public class GeneticAlgorithm {
             generation = nextGeneration(generation);
             generation_list.add(generation);
         }
+        printResultsToFile();
     }
     // Makes the first generation completely random. No parents to 'cross over'
     private List<Schedule> firstGeneration() {
@@ -214,7 +215,7 @@ public class GeneticAlgorithm {
             FileWriter fileWriter = new FileWriter("output.txt");
             fileWriter.write(bestSchedule.toString());
             fileWriter.write("Fitness Score: " + bestSchedule.getFitness());
-            fileWriter.close()
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

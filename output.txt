@@ -1,0 +1,12 @@
+SLA100A at 10 o'clock in Loft 206 taught by instructor Zeldin.
+SLA100B at 3 o'clock in Roman 201 taught by instructor Zeldin.
+SLA191A at 2 o'clock in Roman 201 taught by instructor Lock.
+SLA191B at 1 o'clock in Roman 201 taught by instructor Lock.
+SLA201 at 2 o'clock in Loft 206 taught by instructor Zeldin.
+SLA291 at 3 o'clock in Beach 301 taught by instructor Lock.
+SLA303 at 3 o'clock in Loft 310 taught by instructor Zeldin.
+SLA304 at 11 o'clock in Frank 119 taught by instructor Tyler.
+SLA394 at 12 o'clock in Roman 201 taught by instructor Tyler.
+SLA449 at 10 o'clock in Beach 301 taught by instructor Tyler.
+SLA451 at 10 o'clock in Loft 310 taught by instructor Tyler.
+Fitness Score: 12.85
