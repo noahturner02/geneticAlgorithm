@@ -62,6 +62,9 @@ public class GeneticAlgorithm {
     public List<Facilitator> getFacilitators() {
         return facilitators;
     }
+    private void halveMutationRate() {
+        mutation_rate = mutation_rate * 2;
+    }
 
     public void geneticAlgorithm() {
         FitnessFunction f = new FitnessFunction();
@@ -76,7 +79,7 @@ public class GeneticAlgorithm {
                 s.setFitness(f.fitnessFunction(s));
             }
             generation = rankGeneration(generation);
-            //System.out.println(generation.get(0));
+            System.out.println(generation.get(0));
             System.out.println(generation.get(0).getFitness());
             generation = cullGeneration(generation);
             generation = nextGeneration(generation);
@@ -88,7 +91,7 @@ public class GeneticAlgorithm {
         Random r = new Random();
         List<Schedule> generation = new ArrayList<>();
         // Make 100 children
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 500; i++) {
             List<Activity> activityList = new ArrayList<>();
             for (Activity a : activities) { // iterate through all activities offered
                 Activity a_clone = (Activity) a.clone(); // Clone the activity. copies existing info so we can edit the rest
@@ -120,7 +123,7 @@ public class GeneticAlgorithm {
         int dividing_line;
         for (int i = 0; i < generation.size(); i++) {
             Schedule father = generation.get(i);
-            Schedule mother = generation.get(r.nextInt(0, 500));
+            Schedule mother = generation.get(r.nextInt(0, 250));
             List<Activity> childActivityList = new ArrayList<>();
             dividing_line = r.nextInt(0, 11);
             for (int j = 0; j < father.getActivityList().size(); j++) {
